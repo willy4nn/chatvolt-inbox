@@ -15,16 +15,54 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Post {
-    id        Int      @id @default(autoincrement())
-    name      String
-    createdAt DateTime @default(now())
-    updatedAt DateTime @updatedAt
+enum ConversationStatus {
+    UNRESOLVED
+    RESOLVED
+    HUMAN_REQUESTED
+}
 
-    createdBy   User   @relation(fields: [createdById], references: [id])
-    createdById String
+enum ConversationPriority {
+    LOW
+    MEDIUM
+    HIGH
+}
 
-    @@index([name])
+enum ConversationChannel {
+    DASHBOARD
+    WEBSITE
+    CRISP
+    ZAPIER
+    API
+    FORM
+    MAIL
+    WHATSAPP
+    TELEGRAM
+    ZAPI
+    INSTAGRAM
+    INSTAGRAM_DM
+    MERCADOLIVRE
+    MERCADOLIVRE_DM
+    ZAPPERAPI
+    TWILIO
+    SLACK
+    SLACK_DM
+    SLACK_GROUP
+    YOUTUBE
+}
+
+model Conversation {
+    id                       String               @id @default(cuid())
+    title                    String
+    status                   ConversationStatus    @default(UNRESOLVED)
+    priority                 ConversationPriority  @default(MEDIUM)
+    channel                  ConversationChannel
+    isAiEnabled              Boolean               @default(true)
+    isGroup                  Boolean               @default(false)
+    blocked                  Boolean               @default(false)
+    unreadMessagesCount      Int                   @default(0)
+    createdAt                DateTime              @default(now())
+    updatedAt                DateTime              @updatedAt
+    lastHumanInteractionAt   DateTime?
 }
 
 // Necessary for Next auth
@@ -63,7 +101,6 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
-    posts         Post[]
 }
 
 model VerificationToken {
