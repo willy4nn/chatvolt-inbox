@@ -1,4 +1,10 @@
 export type ConversationStatus = "UNRESOLVED" | "RESOLVED" | "HUMAN_REQUESTED";
+export type ConversationFilter =
+	| "all"
+	| "UNRESOLVED"
+	| "UNREAD"
+	| "RESOLVED"
+	| "HUMAN_REQUESTED";
 export type ConversationPriority = "LOW" | "MEDIUM" | "HIGH";
 export type ConversationChannel =
 	| "DASHBOARD"

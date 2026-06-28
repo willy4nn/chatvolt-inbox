@@ -1,11 +1,19 @@
 "use client";
 
-type FilterStatus = "all" | "UNRESOLVED" | "RESOLVED";
+import type { ConversationFilter } from "@/types";
+
+type FilterStatus = ConversationFilter;
 
 const filters: { value: FilterStatus; label: string; icon: string }[] = [
 	{ value: "all", label: "Todas", icon: "all_inbox" },
-	{ value: "UNRESOLVED", label: "Pendentes", icon: "pending_actions" },
+	{ value: "UNRESOLVED", label: "Não Resolvidas", icon: "pending_actions" },
+	{ value: "UNREAD", label: "Não Lidas", icon: "mark_email_unread" },
 	{ value: "RESOLVED", label: "Resolvidas", icon: "check_circle" },
+	{
+		value: "HUMAN_REQUESTED",
+		label: "Humano Solicitado",
+		icon: "support_agent",
+	},
 ];
 
 interface FilterBarProps {

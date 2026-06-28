@@ -4,7 +4,13 @@ import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
 import { getConversations, getMessages } from "@/server/chatvolt";
 import type { Conversation } from "@/types";
 
-const statusFilterSchema = z.enum(["all", "UNRESOLVED", "RESOLVED"]);
+const statusFilterSchema = z.enum([
+	"all",
+	"UNRESOLVED",
+	"UNREAD",
+	"RESOLVED",
+	"HUMAN_REQUESTED",
+]);
 
 export const conversationRouter = createTRPCRouter({
 	list: publicProcedure
@@ -12,11 +18,18 @@ export const conversationRouter = createTRPCRouter({
 		.query(async ({ input }) => {
 			const conversations = (await getConversations()) as Conversation[];
 
-			if (input.status === "all") {
-				return conversations;
+			switch (input.status) {
+				case "all":
+					return conversations;
+				case "UNREAD":
+					return conversations.filter((conv) => conv.unreadMessagesCount > 0);
+				case "UNRESOLVED":
+				case "RESOLVED":
+				case "HUMAN_REQUESTED":
+					return conversations.filter((conv) => conv.status === input.status);
+				default:
+					return conversations;
 			}
-
-			return conversations.filter((conv) => conv.status === input.status);
 		}),
 
 	messages: publicProcedure

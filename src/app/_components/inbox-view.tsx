@@ -8,9 +8,9 @@ import { FloatingActionButton } from "@/app/_components/fab";
 import { FilterBar } from "@/app/_components/filter-bar";
 import { TopAppBar } from "@/app/_components/top-app-bar";
 import { api } from "@/trpc/react";
-import type { Conversation } from "@/types";
+import type { Conversation, ConversationFilter } from "@/types";
 
-type FilterStatus = "all" | "UNRESOLVED" | "RESOLVED";
+type FilterStatus = ConversationFilter;
 
 interface InboxViewProps {
 	initialConversations: Conversation[];
@@ -21,7 +21,7 @@ export function InboxView({ initialConversations }: InboxViewProps) {
 
 	const { data: conversations } = api.conversation.list.useQuery(
 		{ status },
-		{ initialData: initialConversations },
+		{ initialData: status === "all" ? initialConversations : undefined },
 	);
 
 	return (
@@ -30,7 +30,7 @@ export function InboxView({ initialConversations }: InboxViewProps) {
 
 			<main className="mx-auto max-w-3xl pt-16 pb-20">
 				<FilterBar active={status} onChange={setStatus} />
-				<ConversationList conversations={conversations} />
+				<ConversationList conversations={conversations ?? []} />
 			</main>
 
 			<FloatingActionButton />
