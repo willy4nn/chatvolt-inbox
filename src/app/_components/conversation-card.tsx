@@ -3,7 +3,7 @@ import { getConversationTitle } from "@/types";
 
 const channelLabel: Record<string, string> = {
 	DASHBOARD: "Dashboard",
-	WEBSITE: "Site",
+	WEBSITE: "Website",
 	CRISP: "Crisp",
 	ZAPIER: "Zapier",
 	API: "API",
@@ -25,124 +25,183 @@ const channelLabel: Record<string, string> = {
 };
 
 const statusLabel: Record<string, string> = {
-	UNRESOLVED: "Pendente",
-	RESOLVED: "Resolvido",
-	HUMAN_REQUESTED: "Requisição Humana",
+	UNRESOLVED: "PENDENTE",
+	RESOLVED: "RESOLVIDO",
+	HUMAN_REQUESTED: "REQUISIÇÃO HUMANA",
 };
 
-const statusColor: Record<string, string> = {
-	UNRESOLVED: "bg-amber-100 text-amber-700",
-	RESOLVED: "bg-emerald-100 text-emerald-700",
-	HUMAN_REQUESTED: "bg-blue-100 text-blue-700",
+const channelSymbol: Record<string, string> = {
+	WHATSAPP: "chat",
+	TELEGRAM: "send",
+	MAIL: "mail",
+	INSTAGRAM: "photo_camera",
+	INSTAGRAM_DM: "photo_camera",
+	SLACK: "tag",
+	SLACK_DM: "tag",
+	SLACK_GROUP: "tag",
+	WEBSITE: "language",
+	DASHBOARD: "dashboard",
+	FORM: "description",
+	API: "api",
+	CRISP: "forum",
+	ZAPIER: "bolt",
+	ZAPI: "chat_bubble",
+	ZAPPERAPI: "chat_bubble",
+	MERCADOLIVRE: "shopping_cart",
+	MERCADOLIVRE_DM: "shopping_cart",
+	TWILIO: "call",
+	YOUTUBE: "smart_display",
 };
 
-const priorityColor: Record<string, string> = {
-	LOW: "text-stone-400",
-	MEDIUM: "text-stone-600",
-	HIGH: "text-red-500",
-};
-
-function ChannelIcon({ channel }: { channel: string }) {
-	const icons: Record<string, string> = {
-		WHATSAPP: "\u{1F4AC}",
-		TELEGRAM: "\u{1F4E8}",
-		MAIL: "\u{2709}\uFE0F",
-		INSTAGRAM: "\u{1F4F7}",
-		SLACK: "\u{1F4E0}",
-		WEBSITE: "\u{1F310}",
-		DASHBOARD: "\u{1F4CB}",
-		FORM: "\u{1F4DD}",
-		API: "\u{1F4BB}",
-		CRISP: "\u{1F4AC}",
-		ZAPIER: "\u{2699}\uFE0F",
-	};
-
-	return (
-		<span className="text-lg" title={channel}>
-			{icons[channel] ?? "\u{1F4E8}"}
-		</span>
-	);
+function getChannelSymbol(channel: string): string {
+	return channelSymbol[channel] ?? "forum";
 }
 
-export function ConversationCard({
-	conversation,
-}: {
+function getChannelColorClass(channel: string): string {
+	switch (channel) {
+		case "WHATSAPP":
+			return "text-whatsapp";
+		case "API":
+			return "text-tertiary";
+		case "DASHBOARD":
+			return "text-on-surface-variant";
+		case "WEBSITE":
+			return "text-primary";
+		default:
+			return "text-primary";
+	}
+}
+
+function formatDate(dateString: string): string {
+	const date = new Date(dateString);
+	if (Number.isNaN(date.getTime())) return "";
+
+	const now = new Date();
+	const isSameDay =
+		date.getDate() === now.getDate() &&
+		date.getMonth() === now.getMonth() &&
+		date.getFullYear() === now.getFullYear();
+
+	if (isSameDay) {
+		return date.toLocaleTimeString("pt-BR", {
+			hour: "2-digit",
+			minute: "2-digit",
+		});
+	}
+
+	const yesterday = new Date(now);
+	yesterday.setDate(yesterday.getDate() - 1);
+	const isYesterday =
+		date.getDate() === yesterday.getDate() &&
+		date.getMonth() === yesterday.getMonth() &&
+		date.getFullYear() === yesterday.getFullYear();
+
+	if (isYesterday) {
+		return "Ontem";
+	}
+
+	return date.toLocaleDateString("pt-BR", {
+		day: "2-digit",
+		month: "2-digit",
+	});
+}
+
+interface ConversationCardProps {
 	conversation: Conversation;
-}) {
+}
+
+export function ConversationCard({ conversation }: ConversationCardProps) {
 	const isUnread = conversation.unreadMessagesCount > 0;
 	const participant = conversation.participantsContacts?.[0];
 	const title = getConversationTitle(conversation);
+	const timestamp = formatDate(
+		conversation.updatedAt ?? conversation.createdAt,
+	);
+	const preview = conversation.title
+		? `Conversa iniciada via ${channelLabel[conversation.channel] ?? conversation.channel}`
+		: `Conversa iniciada via ${channelLabel[conversation.channel] ?? conversation.channel}`;
 
 	return (
 		<div
-			className={`flex items-start gap-4 border-stone-100 border-b bg-white px-4 py-4 transition-colors hover:bg-stone-50 ${
-				isUnread ? "border-l-2 border-l-blue-500" : ""
+			className={`group relative flex cursor-pointer bg-surface px-4 py-4 transition-colors duration-200 hover:bg-surface-container-low active:scale-[0.995] active:transition-transform active:duration-100 ${
+				isUnread
+					? "border-outline-variant/50 border-b"
+					: "border-outline-variant/50 border-b"
 			}`}
 		>
-			<div className="flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-full bg-stone-100">
-				{participant?.picture ? (
-					// biome-ignore lint/performance/noImgElement: imagens dinâmicas de fonte externa
-					<img
-						alt=""
-						className="h-full w-full object-cover"
-						src={participant.picture}
-					/>
-				) : (
-					<ChannelIcon channel={conversation.channel} />
-				)}
-			</div>
+			{isUnread && (
+				<div className="absolute top-0 bottom-0 left-0 w-[3px] bg-primary" />
+			)}
 
-			<div className="min-w-0 flex-1">
-				<div className="flex items-center gap-2">
-					<h2
-						className={`truncate text-sm ${
-							isUnread ? "font-semibold text-stone-900" : "text-stone-700"
-						}`}
-					>
-						{title}
-					</h2>
-					{isUnread && (
-						<span className="inline-flex h-2 w-2 shrink-0 rounded-full bg-blue-500" />
-					)}
-				</div>
-
-				{participant && !participant.firstName && !participant.lastName && (
-					<p className="mt-0.5 truncate text-stone-400 text-xs">
-						{participant.email ?? participant.phoneNumber}
-					</p>
-				)}
-
-				<div className="mt-1 flex items-center gap-2">
-					<span className="inline-flex items-center gap-1 rounded-md bg-stone-100 px-1.5 py-0.5 text-stone-500 text-xs">
-						<ChannelIcon channel={conversation.channel} />
-						{channelLabel[conversation.channel] ?? conversation.channel}
-					</span>
-					<span
-						className={`inline-flex items-center rounded-full px-2 py-0.5 font-medium text-xs ${statusColor[conversation.status] ?? ""}`}
-					>
-						{statusLabel[conversation.status] ?? conversation.status}
-					</span>
-					<span
-						className={`text-xs ${priorityColor[conversation.priority] ?? ""}`}
-					>
-						{conversation.priority === "HIGH" ? "!" : "\u00B7"}{" "}
-						{conversation.priority}
-					</span>
-					{isUnread && (
-						<span className="font-medium text-blue-600 text-xs">
-							{conversation.unreadMessagesCount} não{" "}
-							{conversation.unreadMessagesCount === 1 ? "lida" : "lidas"}
+			<div className="mr-4 shrink-0">
+				<div className="flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-surface-container-highest">
+					{participant?.picture ? (
+						// biome-ignore lint/performance/noImgElement: imagens dinâmicas de fonte externa
+						<img
+							alt={title}
+							className="h-full w-full object-cover"
+							src={participant.picture}
+						/>
+					) : (
+						<span className="material-symbols-outlined text-[28px] text-primary">
+							{getChannelSymbol(conversation.channel)}
 						</span>
 					)}
 				</div>
 			</div>
 
-			<time className="shrink-0 pt-1 text-stone-400 text-xs">
-				{new Date(conversation.createdAt).toLocaleDateString("pt-BR", {
-					day: "2-digit",
-					month: "2-digit",
-				})}
-			</time>
+			<div className="min-w-0 flex-1">
+				<div className="mb-0.5 flex items-start justify-between">
+					<h3 className="truncate pr-2 font-headline-sm text-headline-sm text-on-surface">
+						{title}
+					</h3>
+					{timestamp && (
+						<span className="mt-1 shrink-0 font-label-sm text-label-sm text-on-surface-variant">
+							{timestamp}
+						</span>
+					)}
+				</div>
+
+				<div className="mb-1.5 flex items-center gap-2">
+					<span
+						className={`material-symbols-outlined text-[16px] ${getChannelColorClass(conversation.channel)}`}
+					>
+						{getChannelSymbol(conversation.channel)}
+					</span>
+					<span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
+						{channelLabel[conversation.channel] ?? conversation.channel}
+					</span>
+					{conversation.status !== "RESOLVED" && (
+						<span className="rounded bg-secondary-container/20 px-2 py-0.5 font-bold font-label-sm text-[10px] text-on-secondary-container">
+							{statusLabel[conversation.status] ?? conversation.status}
+						</span>
+					)}
+				</div>
+
+				<p
+					className={`truncate font-body-sm text-body-sm ${
+						isUnread
+							? "font-semibold text-on-surface"
+							: "text-on-surface-variant"
+					}`}
+				>
+					{preview}
+				</p>
+			</div>
+
+			<div className="ml-2 flex flex-col items-end justify-between">
+				{isUnread ? (
+					<span className="rounded-full bg-primary px-2 py-0.5 font-bold text-[10px] text-on-primary">
+						{conversation.unreadMessagesCount} não{" "}
+						{conversation.unreadMessagesCount === 1 ? "lida" : "lidas"}
+					</span>
+				) : (
+					<span className="h-5" />
+				)}
+				<span className="rounded bg-surface-container-high px-2 py-0.5 font-label-sm text-[10px] text-on-surface-variant dark:bg-surface-container-high dark:text-on-surface-variant">
+					{conversation.priority}
+				</span>
+			</div>
 		</div>
 	);
 }
