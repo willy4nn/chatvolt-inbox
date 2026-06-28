@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "./colors.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -7,7 +8,6 @@
 	--font-sans:
 		var(--font-inter), ui-sans-serif, system-ui, sans-serif,
 		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-	--font-inter: var(--font-inter);
 	--font-headline-md: var(--font-inter);
 	--font-headline-lg: var(--font-inter);
 	--font-headline-lg-mobile: var(--font-inter);
@@ -75,126 +75,65 @@
 	--spacing-margin-mobile: 16px;
 	--spacing-margin-desktop: 32px;
 
-	/* Brand / semantic colors */
-	--color-whatsapp: #25d366;
+	/* Color tokens — sourced from colors.css */
+	--color-whatsapp: var(--cv-whatsapp);
 
-	/* Material 3 colors - Light */
-	--color-background: #f8f9ff;
-	--color-on-background: #0b1c30;
+	--color-background: var(--cv-background);
+	--color-on-background: var(--cv-on-background);
 
-	--color-surface: #f8f9ff;
-	--color-surface-bright: #f8f9ff;
-	--color-surface-dim: #cbdbf5;
-	--color-surface-variant: #d3e4fe;
-	--color-on-surface-variant: #454653;
-	--color-surface-container-lowest: #ffffff;
-	--color-surface-container-low: #eff4ff;
-	--color-surface-container: #e5eeff;
-	--color-surface-container-high: #dce9ff;
-	--color-surface-container-highest: #d3e4fe;
-	--color-inverse-surface: #213145;
-	--color-inverse-on-surface: #eaf1ff;
+	--color-surface: var(--cv-surface);
+	--color-surface-bright: var(--cv-surface-bright);
+	--color-surface-dim: var(--cv-surface-dim);
+	--color-surface-variant: var(--cv-surface-variant);
+	--color-on-surface-variant: var(--cv-on-surface-variant);
+	--color-surface-container-lowest: var(--cv-surface-container-lowest);
+	--color-surface-container-low: var(--cv-surface-container-low);
+	--color-surface-container: var(--cv-surface-container);
+	--color-surface-container-high: var(--cv-surface-container-high);
+	--color-surface-container-highest: var(--cv-surface-container-highest);
+	--color-inverse-surface: var(--cv-inverse-surface);
+	--color-inverse-on-surface: var(--cv-inverse-on-surface);
 
-	--color-primary: #2334a0;
-	--color-on-primary: #ffffff;
-	--color-primary-container: #3e4eb8;
-	--color-on-primary-container: #c7cdff;
-	--color-primary-fixed: #dfe0ff;
-	--color-primary-fixed-dim: #bbc3ff;
-	--color-on-primary-fixed: #000d60;
-	--color-on-primary-fixed-variant: #2a3aa5;
+	--color-primary: var(--cv-primary);
+	--color-on-primary: var(--cv-on-primary);
+	--color-primary-container: var(--cv-primary-container);
+	--color-on-primary-container: var(--cv-on-primary-container);
+	--color-primary-fixed: var(--cv-primary-fixed);
+	--color-primary-fixed-dim: var(--cv-primary-fixed-dim);
+	--color-on-primary-fixed: var(--cv-on-primary-fixed);
+	--color-on-primary-fixed-variant: var(--cv-on-primary-fixed-variant);
 
-	--color-secondary: #855300;
-	--color-on-secondary: #ffffff;
-	--color-secondary-container: #fea619;
-	--color-on-secondary-container: #684000;
-	--color-secondary-fixed: #ffddb8;
-	--color-secondary-fixed-dim: #ffb95f;
-	--color-on-secondary-fixed: #2a1700;
-	--color-on-secondary-fixed-variant: #653e00;
+	--color-secondary: var(--cv-secondary);
+	--color-on-secondary: var(--cv-on-secondary);
+	--color-secondary-container: var(--cv-secondary-container);
+	--color-on-secondary-container: var(--cv-on-secondary-container);
+	--color-secondary-fixed: var(--cv-secondary-fixed);
+	--color-secondary-fixed-dim: var(--cv-secondary-fixed-dim);
+	--color-on-secondary-fixed: var(--cv-on-secondary-fixed);
+	--color-on-secondary-fixed-variant: var(--cv-on-secondary-fixed-variant);
 
-	--color-tertiary: #003f8b;
-	--color-on-tertiary: #ffffff;
-	--color-tertiary-container: #0055b8;
-	--color-on-tertiary-container: #bcd0ff;
-	--color-tertiary-fixed: #d8e2ff;
-	--color-tertiary-fixed-dim: #adc6ff;
-	--color-on-tertiary-fixed: #001a42;
-	--color-on-tertiary-fixed-variant: #004395;
+	--color-tertiary: var(--cv-tertiary);
+	--color-on-tertiary: var(--cv-on-tertiary);
+	--color-tertiary-container: var(--cv-tertiary-container);
+	--color-on-tertiary-container: var(--cv-on-tertiary-container);
+	--color-tertiary-fixed: var(--cv-tertiary-fixed);
+	--color-tertiary-fixed-dim: var(--cv-tertiary-fixed-dim);
+	--color-on-tertiary-fixed: var(--cv-on-tertiary-fixed);
+	--color-on-tertiary-fixed-variant: var(--cv-on-tertiary-fixed-variant);
 
-	--color-error: #ba1a1a;
-	--color-on-error: #ffffff;
-	--color-error-container: #ffdad6;
-	--color-on-error-container: #93000a;
+	--color-error: var(--cv-error);
+	--color-on-error: var(--cv-on-error);
+	--color-error-container: var(--cv-error-container);
+	--color-on-error-container: var(--cv-on-error-container);
 
-	--color-outline: #767684;
-	--color-outline-variant: #c6c5d5;
-	--color-surface-tint: #4454be;
-	--color-inverse-primary: #bbc3ff;
-
-	/* on-surface is also needed as a color token */
-	--color-on-surface: #0b1c30;
+	--color-outline: var(--cv-outline);
+	--color-outline-variant: var(--cv-outline-variant);
+	--color-surface-tint: var(--cv-surface-tint);
+	--color-inverse-primary: var(--cv-inverse-primary);
+	--color-on-surface: var(--cv-on-surface);
 }
 
 @layer base {
-	/* Material 3 colors - Dark */
-	.dark {
-		--color-background: #0b1c30;
-		--color-on-background: #eaf1ff;
-
-		--color-surface: #0b1c30;
-		--color-surface-bright: #33465f;
-		--color-surface-dim: #071220;
-		--color-surface-variant: #414753;
-		--color-on-surface-variant: #c6c5d5;
-		--color-surface-container-lowest: #081422;
-		--color-surface-container-low: #0f2033;
-		--color-surface-container: #132638;
-		--color-surface-container-high: #1b3045;
-		--color-surface-container-highest: #263b50;
-		--color-inverse-surface: #dce9ff;
-		--color-inverse-on-surface: #0b1c30;
-
-		--color-primary: #bbc3ff;
-		--color-on-primary: #000d60;
-		--color-primary-container: #2a3aa5;
-		--color-on-primary-container: #dfe0ff;
-		--color-primary-fixed: #dfe0ff;
-		--color-primary-fixed-dim: #bbc3ff;
-		--color-on-primary-fixed: #000d60;
-		--color-on-primary-fixed-variant: #c7cdff;
-
-		--color-secondary: #ffb95f;
-		--color-on-secondary: #2a1700;
-		--color-secondary-container: #684000;
-		--color-on-secondary-container: #ffddb8;
-		--color-secondary-fixed: #ffddb8;
-		--color-secondary-fixed-dim: #ffb95f;
-		--color-on-secondary-fixed: #2a1700;
-		--color-on-secondary-fixed-variant: #ffddb8;
-
-		--color-tertiary: #bcd0ff;
-		--color-on-tertiary: #001a42;
-		--color-tertiary-container: #004395;
-		--color-on-tertiary-container: #d8e2ff;
-		--color-tertiary-fixed: #d8e2ff;
-		--color-tertiary-fixed-dim: #bcd0ff;
-		--color-on-tertiary-fixed: #001a42;
-		--color-on-tertiary-fixed-variant: #d8e2ff;
-
-		--color-error: #ffb4ab;
-		--color-on-error: #690005;
-		--color-error-container: #93000a;
-		--color-on-error-container: #ffdad6;
-
-		--color-outline: #8f909c;
-		--color-outline-variant: #454653;
-		--color-surface-tint: #bbc3ff;
-		--color-inverse-primary: #4454be;
-
-		--color-on-surface: #eaf1ff;
-	}
-
 	body {
 		font-family: var(--font-sans);
 		min-height: max(884px, 100dvh);

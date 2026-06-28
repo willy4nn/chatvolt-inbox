@@ -1,0 +1,123 @@
+/* ============================================
+ * Color Tokens — Chatvolt Inbox
+ * Single source of truth for all colors.
+ * Light values on :root, dark values on .dark.
+ * ============================================ */
+
+:root {
+	--cv-whatsapp: #25d366;
+
+	/* Material 3 - Light */
+	--cv-background: #f8f9ff;
+	--cv-on-background: #0b1c30;
+
+	--cv-surface: #f8f9ff;
+	--cv-surface-bright: #f8f9ff;
+	--cv-surface-dim: #cbdbf5;
+	--cv-surface-variant: #d3e4fe;
+	--cv-on-surface-variant: #454653;
+	--cv-surface-container-lowest: #ffffff;
+	--cv-surface-container-low: #eff4ff;
+	--cv-surface-container: #e5eeff;
+	--cv-surface-container-high: #dce9ff;
+	--cv-surface-container-highest: #d3e4fe;
+	--cv-inverse-surface: #213145;
+	--cv-inverse-on-surface: #eaf1ff;
+
+	--cv-primary: #2334a0;
+	--cv-on-primary: #ffffff;
+	--cv-primary-container: #3e4eb8;
+	--cv-on-primary-container: #c7cdff;
+	--cv-primary-fixed: #dfe0ff;
+	--cv-primary-fixed-dim: #bbc3ff;
+	--cv-on-primary-fixed: #000d60;
+	--cv-on-primary-fixed-variant: #2a3aa5;
+
+	--cv-secondary: #855300;
+	--cv-on-secondary: #ffffff;
+	--cv-secondary-container: #fea619;
+	--cv-on-secondary-container: #684000;
+	--cv-secondary-fixed: #ffddb8;
+	--cv-secondary-fixed-dim: #ffb95f;
+	--cv-on-secondary-fixed: #2a1700;
+	--cv-on-secondary-fixed-variant: #653e00;
+
+	--cv-tertiary: #003f8b;
+	--cv-on-tertiary: #ffffff;
+	--cv-tertiary-container: #0055b8;
+	--cv-on-tertiary-container: #bcd0ff;
+	--cv-tertiary-fixed: #d8e2ff;
+	--cv-tertiary-fixed-dim: #adc6ff;
+	--cv-on-tertiary-fixed: #001a42;
+	--cv-on-tertiary-fixed-variant: #004395;
+
+	--cv-error: #ba1a1a;
+	--cv-on-error: #ffffff;
+	--cv-error-container: #ffdad6;
+	--cv-on-error-container: #93000a;
+
+	--cv-outline: #767684;
+	--cv-outline-variant: #c6c5d5;
+	--cv-surface-tint: #4454be;
+	--cv-inverse-primary: #bbc3ff;
+	--cv-on-surface: #0b1c30;
+}
+
+.dark {
+	--cv-whatsapp: #25d366;
+
+	/* Material 3 - Dark */
+	--cv-background: #0b1c30;
+	--cv-on-background: #eaf1ff;
+
+	--cv-surface: #0b1c30;
+	--cv-surface-bright: #33465f;
+	--cv-surface-dim: #071220;
+	--cv-surface-variant: #414753;
+	--cv-on-surface-variant: #c6c5d5;
+	--cv-surface-container-lowest: #081422;
+	--cv-surface-container-low: #0f2033;
+	--cv-surface-container: #132638;
+	--cv-surface-container-high: #1b3045;
+	--cv-surface-container-highest: #263b50;
+	--cv-inverse-surface: #dce9ff;
+	--cv-inverse-on-surface: #0b1c30;
+
+	--cv-primary: #bbc3ff;
+	--cv-on-primary: #000d60;
+	--cv-primary-container: #2a3aa5;
+	--cv-on-primary-container: #dfe0ff;
+	--cv-primary-fixed: #dfe0ff;
+	--cv-primary-fixed-dim: #bbc3ff;
+	--cv-on-primary-fixed: #000d60;
+	--cv-on-primary-fixed-variant: #c7cdff;
+
+	--cv-secondary: #ffb95f;
+	--cv-on-secondary: #2a1700;
+	--cv-secondary-container: #684000;
+	--cv-on-secondary-container: #ffddb8;
+	--cv-secondary-fixed: #ffddb8;
+	--cv-secondary-fixed-dim: #ffb95f;
+	--cv-on-secondary-fixed: #2a1700;
+	--cv-on-secondary-fixed-variant: #ffddb8;
+
+	--cv-tertiary: #bcd0ff;
+	--cv-on-tertiary: #001a42;
+	--cv-tertiary-container: #004395;
+	--cv-on-tertiary-container: #d8e2ff;
+	--cv-tertiary-fixed: #d8e2ff;
+	--cv-tertiary-fixed-dim: #bcd0ff;
+	--cv-on-tertiary-fixed: #001a42;
+	--cv-on-tertiary-fixed-variant: #d8e2ff;
+
+	--cv-error: #ffb4ab;
+	--cv-on-error: #690005;
+	--cv-error-container: #93000a;
+	--cv-on-error-container: #ffdad6;
+
+	--cv-outline: #8f909c;
+	--cv-outline-variant: #454653;
+	--cv-surface-tint: #bbc3ff;
+	--cv-inverse-primary: #4454be;
+	--cv-on-surface: #eaf1ff;
+}
